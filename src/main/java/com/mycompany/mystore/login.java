@@ -35,14 +35,14 @@ public class login extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(400, 600));
-        setPreferredSize(new java.awt.Dimension(400, 600));
         setSize(new java.awt.Dimension(400, 600));
         getContentPane().setLayout(null);
 
@@ -58,24 +58,32 @@ public class login extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 204));
         jButton1.setFont(new java.awt.Font("Segoe Print", 3, 36)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 51, 0));
         jButton1.setText("Customers");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(100, 110, 290, 60);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 204));
         jButton3.setFont(new java.awt.Font("Segoe Print", 3, 36)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(102, 51, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-logistics-32.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shopper.png"))); // NOI18N
         jButton3.setText(" Orders");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3);
         jButton3.setBounds(100, 190, 290, 60);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 204));
         jButton2.setFont(new java.awt.Font("Segoe Print", 3, 36)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(102, 51, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-employee-80.png"))); // NOI18N
         jButton2.setText("Employee");
         jButton2.setToolTipText("");
@@ -89,7 +97,6 @@ public class login extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(255, 255, 204));
         jButton6.setFont(new java.awt.Font("Segoe Print", 3, 36)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(102, 51, 0));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-supplier-50.png"))); // NOI18N
         jButton6.setText("Supplier");
         jButton6.setMaximumSize(new java.awt.Dimension(227, 71));
@@ -100,12 +107,11 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton6);
-        jButton6.setBounds(100, 470, 290, 60);
+        jButton6.setBounds(100, 450, 290, 60);
 
         jButton4.setBackground(new java.awt.Color(255, 255, 204));
         jButton4.setFont(new java.awt.Font("Segoe Print", 3, 36)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(102, 51, 0));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-product-48.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toys.png"))); // NOI18N
         jButton4.setText("Product");
         jButton4.setToolTipText("");
         jButton4.setMaximumSize(new java.awt.Dimension(227, 71));
@@ -120,16 +126,16 @@ public class login extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(255, 255, 204));
         jButton5.setFont(new java.awt.Font("Segoe Print", 3, 36)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(102, 51, 0));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-inventory-50.png"))); // NOI18N
         jButton5.setText("Inventory");
+        jButton5.setActionCommand("Department");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(100, 560, 290, 60);
+        jButton5.setBounds(100, 530, 290, 60);
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,13 +143,14 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(jLabel6);
         jLabel6.setBounds(10, 80, 420, 16);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setMaximumSize(new java.awt.Dimension(400, 600));
-        jLabel1.setMinimumSize(new java.awt.Dimension(400, 600));
-        jLabel1.setPreferredSize(new java.awt.Dimension(400, 600));
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1930, 750);
+        jButton7.setBackground(new java.awt.Color(102, 51, 0));
+        jButton7.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 204));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logout.png"))); // NOI18N
+        jButton7.setText("LOG Out");
+        jButton7.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        getContentPane().add(jButton7);
+        jButton7.setBounds(140, 600, 180, 60);
 
         jScrollPane1.setBackground(new java.awt.Color(102, 51, 0));
 
@@ -153,26 +160,58 @@ public class login extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 0, 580, 740);
+        jScrollPane1.setBounds(0, 0, 530, 750);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1930, 750);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        EmpFrame empFrame = new EmpFrame();
+        empFrame.setVisible(true);
+        empFrame.setLocationRelativeTo(this);
+        this.dispose(); // Close the login frame
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        Inventory Inventory = new Inventory();
+        Inventory.setVisible(true);
+        Inventory.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        SupplierFrame SupplierFrame = new SupplierFrame();
+        SupplierFrame.setVisible(true);
+        SupplierFrame.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        ProductFrame productFrame = new ProductFrame();
+        productFrame.setVisible(true);
+        productFrame.setLocationRelativeTo(this);
+        this.dispose(); 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CustomerFrame customerFrame = new CustomerFrame();
+        customerFrame.setVisible(true);
+        customerFrame.setLocationRelativeTo(this);
+        this.dispose(); // Close the login frame
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        OrdersFrame ordersFrame = new OrdersFrame();
+        ordersFrame.setVisible(true);
+        ordersFrame.setLocationRelativeTo(this);
+        this.dispose(); 
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,6 +255,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

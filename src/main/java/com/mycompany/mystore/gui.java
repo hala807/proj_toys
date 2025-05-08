@@ -4,12 +4,11 @@
  */
 package com.mycompany.mystore;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.swing.JOptionPane;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -128,8 +127,7 @@ public class gui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(600, 800));
+        setMinimumSize(new java.awt.Dimension(2147483647, 2147483647));
         setSize(new java.awt.Dimension(600, 800));
         getContentPane().setLayout(null);
 
@@ -137,7 +135,7 @@ public class gui extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("TOYS");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(140, 30, 410, 120);
+        jLabel3.setBounds(140, 50, 410, 120);
 
         jLabel2.setFont(new java.awt.Font("Snap ITC", 3, 80)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 153, 0));
@@ -156,7 +154,7 @@ public class gui extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField2);
-        jTextField2.setBounds(260, 310, 390, 80);
+        jTextField2.setBounds(230, 270, 390, 80);
 
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 48)); // NOI18N
         jButton1.setText("Login");
@@ -166,11 +164,11 @@ public class gui extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(180, 540, 490, 90);
+        jButton1.setBounds(160, 510, 490, 90);
 
         jPasswordField1.setFont(new java.awt.Font("Segoe UI Light", 0, 40)); // NOI18N
         getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(260, 420, 390, 70);
+        jPasswordField1.setBounds(240, 380, 390, 70);
 
         jCheckBox1.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         jCheckBox1.setText("show password");
@@ -180,7 +178,7 @@ public class gui extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jCheckBox1);
-        jCheckBox1.setBounds(260, 490, 260, 40);
+        jCheckBox1.setBounds(240, 450, 260, 40);
 
         jButton2.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,15 +189,14 @@ public class gui extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(190, 630, 250, 39);
+        jButton2.setBounds(170, 600, 250, 39);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/front.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setToolTipText("");
-        jLabel1.setMinimumSize(new java.awt.Dimension(600, 800));
-        jLabel1.setPreferredSize(new java.awt.Dimension(600, 800));
+        jLabel1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, -30, 1360, 890);
+        jLabel1.setBounds(-20, -70, 1360, 900);
         jLabel1.getAccessibleContext().setAccessibleParent(jLabel3);
 
         pack();
@@ -220,44 +217,49 @@ public class gui extends javax.swing.JFrame {
         String username = jTextField2.getText();
         String password = new String(jPasswordField1.getPassword());
         
-        // Skip validation if fields contain placeholder text
+        // Check if fields contain placeholder text
         if (username.equals("User Name") || password.equals("Enter Password")) {
-            JOptionPane.showMessageDialog(this, "Please enter both username and password", "Login Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter both username and password", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+       /** 
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_mystore_jar_1.0-SNAPSHOTPU");
-            EntityManager em = emf.createEntityManager();
+            // Connect to PostgreSQL
+            DriverManager.registerDriver(new org.postgresql.Driver());
+            String url = "jdbc:postgresql://localhost:5432/postgres";
+            String dbUsername = "sami";
+            String dbPassword = "123456";
             
-            // Check in Customers table
-            Query customerQuery = em.createQuery("SELECT c FROM Customers c WHERE c.email = :email AND c.password = :password");
-            customerQuery.setParameter("email", username);
-            customerQuery.setParameter("password", password);
-            List<Customers> customers = customerQuery.getResultList();
+            Connection con = DriverManager.getConnection(url, dbUsername, dbPassword);
+            Statement stmt = con.createStatement();
             
-            // Check in Employee table
-            Query employeeQuery = em.createQuery("SELECT e FROM Employee e WHERE e.email = :email AND e.password = :password");
-            employeeQuery.setParameter("email", username);
-            employeeQuery.setParameter("password", password);
-            List<Employee> employees = employeeQuery.getResultList();
+            // Query to check admin credentials
+            String query = "SELECT * FROM admin WHERE username = '" + username + "' AND password = '" + password + "'";
+            ResultSet rs = stmt.executeQuery(query);
             
-            if (!customers.isEmpty() || !employees.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                login x = new login();
-                x.setVisible(true);
-                x.setLocationRelativeTo(this);
+            if (rs.next()) {
+                // Login successful
+                login login = new login();
+                login.setVisible(true);
+                login.setLocationRelativeTo(this);
                 this.dispose();
             } else {
+                // Login failed
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
             }
             
-            em.close();
-            emf.close();
+            // Close connections
+            rs.close();
+            stmt.close();
+            con.close();
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error connecting to database: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }*/
+        login login = new login();
+                login.setVisible(true);
+                login.setLocationRelativeTo(this);
+                this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
